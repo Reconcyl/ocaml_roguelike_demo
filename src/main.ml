@@ -1,8 +1,15 @@
 (* determine if a particular subsequence of two arrays are equal *)
-let rec subseq_eq a1 a2 start len =
-  if len = 0 then true else
-  if a1.(start) <> a2.(start) then false else
-    subseq_eq a1 a2 (start + 1) (len - 1)
+let subseq_eq a1 a2 start len =
+  let finish = start + len in
+  let rec loop n =
+    if n = finish then true else
+    if a1.(n) <> a2.(n) then false else
+      loop (n + 1)
+  in
+  if len < 0 then
+    raise (Invalid_argument "length is negative")
+  else
+    loop start
 
 type tile =
   | Upstair
